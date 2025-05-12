@@ -1,0 +1,253 @@
+<html class="scroll-smooth" lang="id">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Manajemen Studi Profesional
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+ </head>
+ <body class="bg-blue-50 min-h-screen flex flex-col">
+  <header class="bg-blue-700 text-white shadow-md sticky top-0 z-50">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+    <div class="flex items-center space-x-3">
+     <img alt="Logo Manajemen Studi berwarna putih dengan latar biru" class="rounded-full" height="40" src="https://storage.googleapis.com/a1aa/image/d0532a8a-fb4c-45e7-91f0-d55e353bff70.jpg" width="40"/>
+     <h1 class="text-xl font-semibold tracking-wide">
+      Manajemen Studi Profesional
+     </h1>
+    </div>
+    <nav class="hidden md:flex space-x-8 font-medium">
+     <a class="hover:text-blue-300 transition" href="#dashboard">
+      Dashboard
+     </a>
+     <a class="hover:text-blue-300 transition" href="#materi">
+      Materi
+     </a>
+     <a class="hover:text-blue-300 transition" href="#progres">
+      Progres
+     </a>
+     <a class="hover:text-blue-300 transition" href="#statistik">
+      Statistik
+     </a>
+     <a class="hover:text-blue-300 transition" href="#about">
+      Tentang
+     </a>
+    </nav>
+    <button aria-label="Toggle menu" class="md:hidden focus:outline-none focus:ring-2 focus:ring-white" id="menu-btn">
+     <i class="fas fa-bars text-2xl">
+     </i>
+    </button>
+   </div>
+   <nav aria-label="Mobile menu" class="md:hidden bg-blue-600 text-white px-4 py-3 space-y-2 hidden" id="mobile-menu">
+    <a class="block hover:bg-blue-500 rounded px-2 py-1 transition" href="#dashboard">
+     Dashboard
+    </a>
+    <a class="block hover:bg-blue-500 rounded px-2 py-1 transition" href="#materi">
+     Materi
+    </a>
+    <a class="block hover:bg-blue-500 rounded px-2 py-1 transition" href="#progres">
+     Progres
+    </a>
+    <a class="block hover:bg-blue-500 rounded px-2 py-1 transition" href="#statistik">
+     Statistik
+    </a>
+    <a class="block hover:bg-blue-500 rounded px-2 py-1 transition" href="#about">
+     Tentang
+    </a>
+   </nav>
+  </header>
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+   <!-- Dashboard Section -->
+   <section class="mb-12" id="dashboard">
+    <h2 class="text-3xl font-bold text-blue-900 mb-6 flex items-center space-x-3">
+     <i class="fas fa-tachometer-alt text-blue-700">
+     </i>
+     <span>
+      Dashboard
+     </span>
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+     <div class="bg-white rounded-lg shadow p-6 border border-blue-200">
+      <h3 class="text-xl font-semibold text-blue-800 mb-2">
+       Total Materi
+      </h3>
+      <p class="text-4xl font-bold text-blue-600" id="totalMateri">
+       0
+      </p>
+     </div>
+     <div class="bg-white rounded-lg shadow p-6 border border-blue-200">
+      <h3 class="text-xl font-semibold text-blue-800 mb-2">
+       Materi Selesai
+      </h3>
+      <p class="text-4xl font-bold text-blue-600" id="materiSelesai">
+       0
+      </p>
+     </div>
+     <div class="bg-white rounded-lg shadow p-6 border border-blue-200">
+      <h3 class="text-xl font-semibold text-blue-800 mb-2">
+       Progres Rata-rata
+      </h3>
+      <p class="text-4xl font-bold text-blue-600" id="progresRata">
+       0%
+      </p>
+     </div>
+    </div>
+   </section>
+   <!-- Materi Section -->
+   <section class="mb-12" id="materi">
+    <h2 class="text-3xl font-bold text-blue-900 mb-6 flex items-center space-x-3">
+     <i class="fas fa-book text-blue-700">
+     </i>
+     <span>
+      Materi yang Dipelajari
+     </span>
+    </h2>
+    <form class="bg-white rounded-lg shadow p-6 border border-blue-200 mb-8 max-w-3xl" id="materiForm">
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div>
+       <label class="block text-blue-800 font-semibold mb-1" for="judulMateri">
+        Judul Materi
+       </label>
+       <input class="w-full rounded border border-blue-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" id="judulMateri" name="judulMateri" placeholder="Contoh: Algoritma dan Struktur Data" required="" type="text"/>
+      </div>
+      <div>
+       <label class="block text-blue-800 font-semibold mb-1" for="deskripsiMateri">
+        Deskripsi Singkat
+       </label>
+       <input class="w-full rounded border border-blue-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" id="deskripsiMateri" name="deskripsiMateri" placeholder="Contoh: Materi dasar pemrograman" type="text"/>
+      </div>
+      <div>
+       <label class="block text-blue-800 font-semibold mb-1" for="tanggalBelajar">
+        Tanggal Belajar
+       </label>
+       <input class="w-full rounded border border-blue-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" id="tanggalBelajar" name="tanggalBelajar" required="" type="date"/>
+      </div>
+     </div>
+     <div class="mt-6 flex justify-end">
+      <button class="bg-blue-700 hover:bg-blue-800 text-white font-semibold px-6 py-2 rounded shadow transition" type="submit">
+       Tambah Materi
+      </button>
+     </div>
+    </form>
+    <div class="overflow-x-auto">
+     <table class="min-w-full bg-white rounded-lg shadow border border-blue-200">
+      <thead class="bg-blue-700 text-white">
+       <tr>
+        <th class="py-3 px-4 text-left font-semibold">
+         Judul Materi
+        </th>
+        <th class="py-3 px-4 text-left font-semibold">
+         Deskripsi
+        </th>
+        <th class="py-3 px-4 text-left font-semibold">
+         Tanggal Belajar
+        </th>
+        <th class="py-3 px-4 text-left font-semibold w-32">
+         Aksi
+        </th>
+       </tr>
+      </thead>
+      <tbody class="divide-y divide-blue-200" id="materiList">
+      </tbody>
+     </table>
+    </div>
+   </section>
+   <!-- Progres Section -->
+   <section class="mb-12" id="progres">
+    <h2 class="text-3xl font-bold text-blue-900 mb-6 flex items-center space-x-3">
+     <i class="fas fa-tasks text-blue-700">
+     </i>
+     <span>
+      Progres Belajar
+     </span>
+    </h2>
+    <form class="bg-white rounded-lg shadow p-6 border border-blue-200 mb-8 max-w-3xl" id="progresForm">
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div>
+       <label class="block text-blue-800 font-semibold mb-1" for="materiSelect">
+        Pilih Materi
+       </label>
+       <select class="w-full rounded border border-blue-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" id="materiSelect" name="materiSelect" required="">
+        <option disabled="" selected="" value="">
+         -- Pilih Materi --
+        </option>
+       </select>
+      </div>
+      <div>
+       <label class="block text-blue-800 font-semibold mb-1" for="progressValue">
+        Progres (%)
+       </label>
+       <input class="w-full rounded border border-blue-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" id="progressValue" max="100" min="0" name="progressValue" placeholder="0 - 100" required="" type="number"/>
+      </div>
+      <div>
+       <label class="block text-blue-800 font-semibold mb-1" for="tanggalProgres">
+        Tanggal Update
+       </label>
+       <input class="w-full rounded border border-blue-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" id="tanggalProgres" name="tanggalProgres" required="" type="date"/>
+      </div>
+     </div>
+     <div class="mt-6 flex justify-end">
+      <button class="bg-blue-700 hover:bg-blue-800 text-white font-semibold px-6 py-2 rounded shadow transition" type="submit">
+       Update Progres
+      </button>
+     </div>
+    </form>
+    <div class="space-y-6 max-w-4xl">
+     <div class="space-y-4" id="progresList">
+     </div>
+    </div>
+   </section>
+   <!-- Statistik Section -->
+   <section class="mb-12" id="statistik">
+    <h2 class="text-3xl font-bold text-blue-900 mb-6 flex items-center space-x-3">
+     <i class="fas fa-chart-line text-blue-700">
+     </i>
+     <span>
+      Statistik Progres
+     </span>
+    </h2>
+    <div class="bg-white rounded-lg shadow p-6 border border-blue-200 max-w-4xl">
+     <canvas aria-label="Grafik progres belajar per materi" id="progressChart" role="img">
+     </canvas>
+    </div>
+   </section>
+   <!-- About Section -->
+   <section class="mb-12 max-w-4xl mx-auto text-blue-900" id="about">
+    <h2 class="text-3xl font-bold mb-4 flex items-center space-x-3">
+     <i class="fas fa-info-circle text-blue-700">
+     </i>
+     <span>
+      Tentang Aplikasi
+     </span>
+    </h2>
+    <p class="mb-4 leading-relaxed">
+     Aplikasi Manajemen Studi Profesional ini dirancang untuk membantu Anda mencatat materi yang dipelajari dan memantau progres belajar secara efektif. Dengan fitur pencatatan materi, update progres, dan visualisasi statistik, Anda dapat mengelola waktu belajar dengan lebih terstruktur dan fokus.
+    </p>
+    <p class="mb-4 leading-relaxed">
+     Tema biru yang digunakan memberikan kesan profesional dan menenangkan, mendukung suasana belajar yang nyaman dan produktif.
+    </p>
+    <p class="leading-relaxed">
+     Dikembangkan dengan teknologi modern menggunakan Tailwind CSS untuk tampilan responsif dan interaktif.
+    </p>
+   </section>
+  </main>
+  <footer class="bg-blue-700 text-white py-6 mt-auto">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm">
+    © 2024 Manajemen Studi Profesional. Semua hak cipta dilindungi.
+   </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js">
+  </script>
+  <script src="script.js">
+  </script>
+
+ </body>
+</html>
