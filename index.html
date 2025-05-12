@@ -137,27 +137,7 @@
       </button>
      </div>
     </form>
-    <div class="overflow-x-auto">
-     <table class="min-w-full bg-white rounded-lg shadow border border-blue-200">
-      <thead class="bg-blue-700 text-white">
-       <tr>
-        <th class="py-3 px-4 text-left font-semibold">
-         Judul Materi
-        </th>
-        <th class="py-3 px-4 text-left font-semibold">
-         Deskripsi
-        </th>
-        <th class="py-3 px-4 text-left font-semibold">
-         Tanggal Belajar
-        </th>
-        <th class="py-3 px-4 text-left font-semibold w-32">
-         Aksi
-        </th>
-       </tr>
-      </thead>
-      <tbody class="divide-y divide-blue-200" id="materiList">
-      </tbody>
-     </table>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="materiCards">
     </div>
    </section>
    <!-- Progres Section -->
@@ -200,9 +180,7 @@
       </button>
      </div>
     </form>
-    <div class="space-y-6 max-w-4xl">
-     <div class="space-y-4" id="progresList">
-     </div>
+    <div class="space-y-6 max-w-4xl" id="progresList">
     </div>
    </section>
    <!-- Statistik Section -->
@@ -246,8 +224,7 @@
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/chart.js">
   </script>
-  <script src="script.js">
+  <script src="script_new.js">
   </script>
-
  </body>
 </html>

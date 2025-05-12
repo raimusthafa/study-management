@@ -12,7 +12,7 @@
 
     // Elements
     const materiForm = document.getElementById('materiForm');
-    const materiListEl = document.getElementById('materiList');
+    const materiCardsEl = document.getElementById('materiCards');
     const materiSelect = document.getElementById('materiSelect');
     const progresForm = document.getElementById('progresForm');
     const progresListEl = document.getElementById('progresList');
@@ -32,33 +32,46 @@
       localStorage.setItem(STORAGE_PROGRES, JSON.stringify(progresData));
     }
 
-    // Render Materi Table
+    // Get progress bar color based on value
+    function getProgressColor(value) {
+      if (value >= 80) return 'bg-green-600';
+      if (value >= 50) return 'bg-yellow-500';
+      if (value >= 20) return 'bg-orange-500';
+      return 'bg-red-600';
+    }
+
+    // Render Materi Cards
     function renderMateri() {
-      materiListEl.innerHTML = '';
+      materiCardsEl.innerHTML = '';
       materiSelect.innerHTML = '<option value="" disabled selected>-- Pilih Materi --</option>';
       materiData.forEach((m, i) => {
-        // Table row
-        const tr = document.createElement('tr');
-        tr.className = 'hover:bg-blue-50 cursor-default';
+        // Add to select
+        const option = document.createElement('option');
+        option.value = m.id;
+        option.textContent = m.judul;
+        materiSelect.appendChild(option);
 
-        const tdJudul = document.createElement('td');
-        tdJudul.className = 'py-3 px-4 text-blue-900 font-semibold';
-        tdJudul.textContent = m.judul;
+        // Find latest progress for this materi
+        const progresList = progresData.filter((p) => p.materiId === m.id);
+        let latestProgress = 0;
+        let latestDate = null;
+        if (progresList.length > 0) {
+          progresList.sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal));
+          latestProgress = progresList[0].progress;
+          latestDate = progresList[0].tanggal;
+        }
 
-        const tdDesc = document.createElement('td');
-        tdDesc.className = 'py-3 px-4 text-blue-800';
-        tdDesc.textContent = m.deskripsi || '-';
+        // Card container
+        const card = document.createElement('article');
+        card.className = 'bg-white rounded-lg shadow p-6 border border-blue-200 flex flex-col justify-between';
 
-        const tdTanggal = document.createElement('td');
-        tdTanggal.className = 'py-3 px-4 text-blue-700';
-        tdTanggal.textContent = new Date(m.tanggal).toLocaleDateString('id-ID', {
-          day: 'numeric',
-          month: 'long',
-          year: 'numeric',
-        });
+        // Header with title and delete button
+        const header = document.createElement('div');
+        header.className = 'flex justify-between items-start mb-4';
 
-        const tdAksi = document.createElement('td');
-        tdAksi.className = 'py-3 px-4';
+        const title = document.createElement('h3');
+        title.className = 'text-xl font-semibold text-blue-900';
+        title.textContent = m.judul;
 
         const btnDelete = document.createElement('button');
         btnDelete.className =
@@ -80,20 +93,53 @@
           }
         });
 
-        tdAksi.appendChild(btnDelete);
+        header.appendChild(title);
+        header.appendChild(btnDelete);
 
-        tr.appendChild(tdJudul);
-        tr.appendChild(tdDesc);
-        tr.appendChild(tdTanggal);
-        tr.appendChild(tdAksi);
+        // Description
+        const desc = document.createElement('p');
+        desc.className = 'text-blue-800 mb-4 min-h-[3rem]';
+        desc.textContent = m.deskripsi || 'Tidak ada deskripsi.';
 
-        materiListEl.appendChild(tr);
+        // Date learned
+        const dateLearned = document.createElement('p');
+        dateLearned.className = 'text-sm text-blue-700 italic mb-4';
+        dateLearned.textContent = `Tanggal belajar: ${new Date(m.tanggal).toLocaleDateString('id-ID', {
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric',
+        })}`;
 
-        // Add to select
-        const option = document.createElement('option');
-        option.value = m.id;
-        option.textContent = m.judul;
-        materiSelect.appendChild(option);
+        // Progress bar container
+        const progressContainer = document.createElement('div');
+        progressContainer.className = 'w-full bg-blue-100 rounded-full h-6 overflow-hidden shadow-inner mb-2';
+
+        // Progress bar fill with dynamic color
+        const progressFill = document.createElement('div');
+        progressFill.className = `h-6 text-white font-semibold flex items-center justify-center ${getProgressColor(latestProgress)}`;
+        progressFill.style.width = `${latestProgress}%`;
+        progressFill.textContent = `${latestProgress}%`;
+
+        progressContainer.appendChild(progressFill);
+
+        // Latest update date
+        const updateDate = document.createElement('p');
+        updateDate.className = 'text-sm text-blue-700 italic';
+        updateDate.textContent = latestDate
+          ? `Update terakhir: ${new Date(latestDate).toLocaleDateString('id-ID', {
+              day: 'numeric',
+              month: 'long',
+              year: 'numeric',
+            })}`
+          : 'Belum ada progres dicatat.';
+
+        card.appendChild(header);
+        card.appendChild(desc);
+        card.appendChild(dateLearned);
+        card.appendChild(progressContainer);
+        card.appendChild(updateDate);
+
+        materiCardsEl.appendChild(card);
       });
     }
 
@@ -116,7 +162,7 @@
         progresByMateri[p.materiId].push(p);
       });
 
-      // For each materi, show latest progres with progress bar
+      // For each materi, show latest progres with progress bar and card style
       materiData.forEach((m) => {
         const progresList = progresByMateri[m.id] || [];
         if (progresList.length === 0) return;
@@ -125,8 +171,8 @@
         progresList.sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal));
         const latest = progresList[0];
 
-        // Container
-        const card = document.createElement('div');
+        // Container card
+        const card = document.createElement('article');
         card.className = 'bg-white rounded-lg shadow p-5 border border-blue-200';
 
         // Header
@@ -152,9 +198,9 @@
         const progressContainer = document.createElement('div');
         progressContainer.className = 'w-full bg-blue-100 rounded-full h-6 overflow-hidden shadow-inner';
 
-        // Progress bar fill
+        // Progress bar fill with dynamic color
         const progressFill = document.createElement('div');
-        progressFill.className = 'h-6 bg-blue-600 text-white font-semibold flex items-center justify-center';
+        progressFill.className = `h-6 text-white font-semibold flex items-center justify-center ${getProgressColor(latest.progress)}`;
         progressFill.style.width = `${latest.progress}%`;
         progressFill.textContent = `${latest.progress}%`;
 
